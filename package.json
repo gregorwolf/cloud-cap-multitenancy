@@ -19,6 +19,7 @@
     "deploy": "cds deploy",
     "start": "cds run",
     "deploy:cf": "cf deploy mta_archives/capmt.mtar",
+    "deploy:cf:app": "cf deploy mta_archives/capmt.mtar -m capmt-app",
     "deploy:cf:srv": "cf deploy mta_archives/capmt.mtar -m capmt-srv",
     "deploy:cf:trial": "cf deploy mta_archives/capmt.mtar -e sapcp-cf-trial.mtaext"
   },

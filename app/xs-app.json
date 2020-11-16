@@ -13,6 +13,12 @@
       "authenticationType": "none"
     },
     {
+      "source": "(api/)(.*)",
+      "destination": "capmt_svc_be",
+      "csrfProtection": true,
+      "authenticationType": "xsuaa"
+    },
+    {
       "source": "(srv/)(.*)",
       "destination": "capmt_svc_be",
       "csrfProtection": true,

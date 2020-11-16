@@ -10,8 +10,17 @@
 <br />
 <img src="favicon.ico" /><br />
 
-  <a href="/catalog/">/catalog/</a> link handled by capmt-srv<br />
+<h1>Cloud CAP Multitenancy</h1>
+
+<h2>Public Endpoints</h2>
+<a href="/catalog/">/catalog/</a> link handled by capmt-srv<br />
+<a href="/catalog/$metadata">/catalog Metadata</a> link handled by capmt-srv<br />
+
+<h2>Endpoints for Scope User</h2>
 <a href="/catalog/Authors?$expand=books($select=ID,title)">/catalog/Authors?$expand=books($select=ID,title)</a> link handled by capmt-srv<br />
+
+<h2>Endpoints for Scope Administrator</h2>
+<a href="/catalog/OrdersView">/catalog/OrdersView</a> link handled by capmt-srv<br />
 
 </body>
 </html>
