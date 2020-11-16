@@ -15,8 +15,10 @@
   },
   "scripts": {
     "build": "cds build/all --clean",
+    "build:cf": "mbt build -p cf --mtar=capmt.mtar",
     "deploy": "cds deploy",
     "start": "cds run",
+    "deploy:cf": "cf deploy mta_archives/capmt.mtar",
     "deploy:cf:trial": "cf deploy mta_archives/capmt.mtar -e sapcp-cf-trial.mtaext"
   },
   "cds": {
