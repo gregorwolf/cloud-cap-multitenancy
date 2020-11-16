@@ -16,6 +16,8 @@ build-parameters:
      commands:
       - npm install
       - npx -p @sap/cds-dk cds build
+      # Build also the common database content
+      - npx -p @sap/cds-dk cds build --for hana -s db_comm/ -o db_comm/
       - rm -rf db_sub
       - cp -avp db db_sub
       - cp -avp srv/hdbspecific/ db_sub/
