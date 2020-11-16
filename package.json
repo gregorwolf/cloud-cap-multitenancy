@@ -6,12 +6,12 @@
   "license": "UNLICENSED",
   "private": true,
   "dependencies": {
-    "@sap/cds": "^4",
-    "express": "^4",
-    "@sap/hana-client": "^2.4.177"
+    "@sap/cds": "^4.3.0",
+    "express": "^4.17.1",
+    "@sap/hana-client": "^2.6.61"
   },
   "devDependencies": {
-    "sqlite3": "^4"
+    "sqlite3": "^5.0.0"
   },
   "scripts": {
     "build": "cds build/all --clean",
