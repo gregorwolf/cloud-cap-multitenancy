@@ -6,7 +6,6 @@ using { CatalogService } from './cat-service';
 
 annotate CatalogService with @(requires: ['system-user','Administrator','User']);
 
-annotate CatalogService.Orders with @(restrict: [
-  { grant: ['READ','WRITE'], to: 'Administrator' }, 
-  { grant: ['READ'], to: 'User' }
+annotate CatalogService.OrdersView with @(restrict: [
+  { grant: ['READ'], to: 'Administrator' }
 ]);
