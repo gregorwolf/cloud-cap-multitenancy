@@ -4,9 +4,9 @@ using { CatalogService } from './cat-service';
 // Run this from the root of the project.
 // cds compile srv/ --to xsuaa,json > cds-security.json
 
-annotate CatalogService with @(requires: ['system-user','Admin','User']);
+annotate CatalogService with @(requires: ['system-user','Administrator','User']);
 
 annotate CatalogService.Orders with @(restrict: [
-  { grant: ['READ','WRITE'], to: 'Admin' }, 
+  { grant: ['READ','WRITE'], to: 'Administrator' }, 
   { grant: ['READ'], to: 'User' }
 ]);
