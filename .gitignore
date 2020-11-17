@@ -34,5 +34,5 @@ Makefile*
 .env
 
 /db_sub/
-
+/srv/src/main/resources/edmx
 /mta_archives/
