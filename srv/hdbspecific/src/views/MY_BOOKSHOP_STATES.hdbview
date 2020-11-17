@@ -1,0 +1,5 @@
+VIEW my_bookshop_States AS SELECT
+  States_0.code,
+  States_0.abbrev,
+  States_0.name
+FROM COMMON_STATES AS States_0

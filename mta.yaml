@@ -18,7 +18,8 @@ build-parameters:
       - npx -p @sap/cds-dk cds build
       - rm -rf db_sub
       - cp -avp db db_sub
-      - cp -avp srv/hdbspecific/ db_sub/
+      - cp -avp srv/hdbspecific/cfg db_sub/
+      - cp -avp srv/hdbspecific/src db_sub/
 
 modules:
 
