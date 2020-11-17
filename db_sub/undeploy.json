@@ -1,6 +1,0 @@
-[
-    "src/data/orders.hdbtable",
-    "src/views/ORDERS_CALCVIEW.hdbcalculationview",
-    "src/views/ORDERS_VIEW_CALCVIEW.hdbcalculationview",
-    "src/views/ordersView.hdbview"
-]

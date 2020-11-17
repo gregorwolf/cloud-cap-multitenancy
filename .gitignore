@@ -33,6 +33,6 @@ CF_CREDS.sh
 Makefile*
 .env
 
-# hdb_sub
+/db_sub/
 
 /mta_archives/
