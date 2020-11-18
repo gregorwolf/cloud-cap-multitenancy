@@ -1,8 +1,11 @@
-
+/* eslint-disable capitalized-comments */
+const app = require("express")();
 const cds = require("@sap/cds");
+//const mtx = require("@sap/cds-mtx");
+
 const axios = require('axios');
 const bodyParser = require('body-parser');
-console.log(`CDS Custom Boostrap from /srv/server.js`)
+
 
 var cds_mtx_way = true;
 
@@ -43,7 +46,6 @@ async function mockSubscribe() {
   return result;
 }
 
-cds.on('bootstrap', (app) => {
 
 if (!cds_mtx_way) {
   const bodyParser = require('body-parser');
@@ -197,42 +199,6 @@ if (!cds_mtx_way) {
 
 }
 
-})
-
-module.exports = async (o) => {
-  o.port = process.env.PORT || 4004
-  o.baseDir = process.cwd()
-  o.routes = []
-
-  const express = require('express')
-  let app = express()
-  app.express = express
-  app.baseDir = process.cwd()
-  o.app = app
-
-
-  const path = require('path')
-  const fileExists = require('fs').existsSync
-
-  let staticFolder = path.join(__dirname, '/resources')
-  app.use(express.static(staticFolder))
-
-  let expressFile = path.join(__dirname, '/server/express.js')
-  if (fileExists(expressFile)) {
-      await require(expressFile)(app)
-  }
-  o.app.httpServer = await cds.server(o)
-
-  const glob = require('glob')
-  //Load routes
-  let routesDir = path.join(__dirname, '/routes/**/*.js')
-  let files = glob.sync(routesDir)
-  this.routerFiles = files;
-  if (files.length !== 0) {
-      for (let file of files) {
-          await require(file)(app, app.httpServer)
-      }
-  }
-
-  return o.app.httpServer
-}
+const PORT = process.env.PORT || 4444;
+console.log("Listening on: " + PORT);
+app.listen(PORT);

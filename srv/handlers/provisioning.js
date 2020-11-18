@@ -9,6 +9,7 @@ const cfenv = require('cfenv');
 const appEnv = cfenv.getAppEnv();
 
 const xsenv = require('@sap/xsenv');
+xsenv.loadEnv()
 const services = xsenv.getServices({
   uaa: { tag: 'xsuaa' },
   registry: { tag: 'SaaS' },
