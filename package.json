@@ -1,128 +1,168 @@
 {
-  "name": "capmt",
-  "version": "0.0.1",
-  "description": "Cloud Application Programming(CAP) with Multitenancy using Service Manger Tenant Data Separation",
-  "repository": "<Add your repository here>",
-  "license": "UNLICENSED",
-  "private": true,
-  "dependencies": {
-    "@sap/cds": "^4.3.0",
-    "express": "^4.17.1",
-    "@sap/hana-client": "^2.6.61"
-  },
-  "devDependencies": {
-    "sqlite3": "^5.0.0"
-  },
-  "scripts": {
-    "build": "cds build/all --clean",
-    "build:cf": "mbt build -p cf --mtar=capmt.mtar",
-    "deploy": "cds deploy",
-    "start": "cds run",
-    "deploy:cf": "cf deploy mta_archives/capmt.mtar",
-    "deploy:cf:app": "cf deploy mta_archives/capmt.mtar -m capmt-app",
-    "deploy:cf:srv": "cf deploy mta_archives/capmt.mtar -m capmt-srv",
-    "deploy:cf:rtc": "cf deploy mta_archives/capmt.mtar -m capmt-rtc",
-    "deploy:cf:trial": "cf deploy mta_archives/capmt.mtar -e sapcp-cf-trial.mtaext"
-  },
-  "cds": {
-    "comment": "Anything defined outside of a [profile] will apply to all profiles.",
-    "requires": {
-      "db": {
-        "kind": "hana",
-        "model": [
-          "db",
-          "srv"
-        ]
-      }
+    "name": "capmt",
+    "version": "0.0.1",
+    "description": "Cloud Application Programming(CAP) with Multitenancy using Service Manger Tenant Data Separation",
+    "repository": "<Add your repository here>",
+    "license": "UNLICENSED",
+    "private": true,
+    "dependencies": {
+        "@sap/cds": "^4.3.0",
+        "express": "^4.17.1",
+        "@sap/hana-client": "^2.6.61",
+        "@sap/xsenv": "latest",
+        "@sap/xssec": "^3.0.10",
+        "@sap/cds-mtx": "^1.0.22",
+        "@sap/instance-manager": "^2.2.0",
+        "@sap/hdi-deploy": "^3.11.15",
+        "nodemon": "^2.0.6",
+        "cfenv": "latest",
+        "passport": "^0.4.1",
+        "hdb": "^0.18.1",
+        "body-parser": "latest",
+        "glob": "^7.1.6"
     },
-    "build": {
-      "target": ".",
-      "tasks": [
-        {
-          "for": "hana",
-          "src": "db",
-          "options": {
-            "model": [
-              "db",
-              "srv"
-            ]
-          }
+    "devDependencies": {
+        "sqlite3": "^5.0.0"
+    },
+    "scripts": {
+        "build": "cds build/all --clean",
+        "build:cf": "mbt build -p cf --mtar=capmt_0.0.1.mtar",
+        "deploy": "cds deploy",
+        "start": "cds run",
+        "deploy:cf": "cf deploy mta_archives/capmt_0.0.1.mtar",
+        "deploy:cf:app": "cf deploy mta_archives/capmt_0.0.1.mtar -m capmt-app",
+        "deploy:cf:srv": "cf deploy mta_archives/capmt_0.0.1.mtar -m capmt-srv",
+        "deploy:cf:trial": "cf deploy mta_archives/capmt_0.0.1.mtar -e sapcp-cf-trial.mtaext"
+    },
+    "cds": {
+        "comment": "Anything defined outside of a [profile] will apply to all profiles.",
+        "mtx": {
+            "app": {
+                "urlpart": "-dev-capmt-app.cfapps.us10.hana.ondemand.com"
+            },
+            "api": {
+                "model": true,
+                "provisioning": true,
+                "metadata": true
+            },
+            "element-prefix": [
+                "Z_",
+                "ZZ_"
+            ],
+            "namespace-blacklist": [
+                "com.sap.",
+                "sap."
+            ],
+            "entity-whitelist": [
+                "my.bookshop.Books"
+            ],
+            "service-whitelist": []
         },
-        {
-          "for": "hana",
-          "src": "db_comm",
-          "options": {
-            "model": [
-              "db_comm"
-            ]
-          }
+        "requires": {
+            "db": {
+                "kind": "hana",
+                "model": [
+                    "db",
+                    "srv"
+                ]
+            }
         },
-        {
-          "for": "node-cf",
-          "src": "srv",
-          "options": {
-            "model": [
-              "db",
-              "srv"
+        "build": {
+            "target": "gen",
+            "tasks": [
+                {
+                    "for": "hana",
+                    "src": "db",
+                    "options": {
+                        "model": [
+                            "db",
+                            "srv"
+                        ]
+                    }
+                },
+                {
+                    "for": "hana",
+                    "src": "db_comm",
+                    "options": {
+                        "model": [
+                            "db_comm"
+                        ]
+                    }
+                },
+                {
+                    "for": "node-cf",
+                    "src": "srv",
+                    "options": {
+                        "model": [
+                            "db",
+                            "srv"
+                        ]
+                    }
+                },
+                {
+                    "for": "java-cf",
+                    "src": "srv",
+                    "options": {
+                        "model": [
+                            "db",
+                            "srv"
+                        ]
+                    }
+                },
+                {
+                    "for": "mtx",
+                    "src": ".",
+                    "dest": "srv"
+                }
             ]
-          }
         },
-        {
-          "for": "java-cf",
-          "src": "srv",
-          "options": {
-            "model": [
-              "db",
-              "srv"
-            ]
-          }
+        "[development]": {
+            "comment": "Anything defined inside of [development] will overrided prior values.",
+            "requires": {
+                "db": {
+                    "kind": "sqlite"
+                }
+            }
         },
-        {
-          "for": "mtx",
-          "src": ".",
-          "dest": "srv"
+        "[qa]": {
+            "comment": "Anything defined inside of [qa] will overrided prior values."
+        },
+        "[production]": {
+            "comment": "Anything defined inside of [production] will overrided prior values.",
+            "auth": {
+                "passport": {
+                    "strategy": "JWT"
+                }
+            },
+            "requires": {
+                "db": {
+                    "kind": "hana"
+                },
+                "uaa": {
+                    "kind": "xsuaa"
+                }
+            }
+        },
+        "odata": {
+            "version": "v4"
+        },
+        "hana": {
+            "deploy-format": "hdbtable"
+        },
+        "features": {
+            "snapi": true
         }
-      ]
     },
-    "[development]": {
-      "comment": "Anything defined inside of [development] will overrided prior values.",
-      "requires": {
-        "db": {
-          "kind": "sqlite"
-        }
-      }
-    },
-    "[qa]": {
-      "comment": "Anything defined inside of [qa] will overrided prior values."
-    },
-    "[production]": {
-      "comment": "Anything defined inside of [production] will overrided prior values.",
-      "requires": {
-        "db": {
-          "kind": "hana"
-        }
-      }
-    },
-    "odata": {
-      "version": "v4"
-    },
-    "hana": {
-      "deploy-format": "hdbtable"
-    },
-    "features": {
-      "snapi": true
-    }
-  },
-  "files": [
-    "app",
-    "db",
-    "handlers",
-    "integration-tests",
-    "srv",
-    "cdsrc.json",
-    "eslintrc",
-    "gitignore",
-    "vscode",
-    "mta.yaml"
-  ]
+    "files": [
+        "app",
+        "db",
+        "handlers",
+        "integration-tests",
+        "srv",
+        "cdsrc.json",
+        "eslintrc",
+        "gitignore",
+        "vscode",
+        "mta.yaml"
+    ]
 }

@@ -24,6 +24,7 @@ entity Orders : managed {
   state     : Association to States;
 }
 
+// Access via Interface Views
 @cds.persistence.exists
 entity Currencies {
   key code : String(3);
@@ -32,8 +33,26 @@ entity Currencies {
   USDperU  : Double;
 }
 
+// Access via Interface Views
 @cds.persistence.exists
 entity States {
+  key code : String(2);
+  abbrev   : String(6);
+  name     : String(24);
+}
+
+// Access via Synonym
+@cds.persistence.exists
+entity Currencies_Synonym {
+  key code : String(3);
+  name     : String(128);
+  UperUSD  : Double;
+  USDperU  : Double;
+}
+
+// Access via Synonym
+@cds.persistence.exists
+entity States_Synonym {
   key code : String(2);
   abbrev   : String(6);
   name     : String(24);

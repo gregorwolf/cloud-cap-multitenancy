@@ -3,4 +3,4 @@ VIEW my_bookshop_Currencies AS SELECT
   Currencies_0.name,
   Currencies_0.UperUSD,
   Currencies_0.USDperU
-FROM COMMON_CURRENCIES AS Currencies_0
+FROM COMMON_CURRENCIES_FOR_VIEW AS Currencies_0
