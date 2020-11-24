@@ -18,8 +18,6 @@ const appEnvOpts = vcapLocal ? { vcap: vcapLocal } : {};
 
 const appEnv = cfenv.getAppEnv(appEnvOpts);
 
-const appEnv = cfenv.getAppEnv();
-
 const xsenv = require("@sap/xsenv");
 const services = xsenv.getServices({
   uaa: { tag: "xsuaa" },
