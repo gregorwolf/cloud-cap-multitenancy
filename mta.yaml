@@ -104,6 +104,7 @@ modules:
       #  - route: capmt-app-${space}-${app-name}.${default-domain}
       disk-quota: 256M
       memory: 256M
+      keep-existing-routes: true
    provides:
     - name: Router_api
       properties:
