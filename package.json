@@ -6,7 +6,7 @@
     "license": "UNLICENSED",
     "private": true,
     "dependencies": {
-        "@sap/cds": "^4.3.0",
+        "@sap/cds": "^4.3.1",
         "express": "^4.17.1",
         "@sap/hana-client": "^2.6.61",
         "@sap/xsenv": "latest",
@@ -17,7 +17,7 @@
         "nodemon": "^2.0.6",
         "cfenv": "latest",
         "passport": "^0.4.1",
-        "hdb": "^0.18.1",
+        "hdb": "^0.18.2",
         "body-parser": "latest",
         "glob": "^7.1.6"
     },
